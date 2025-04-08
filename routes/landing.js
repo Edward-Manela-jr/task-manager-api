@@ -13,7 +13,7 @@ router.post('/login', (req, res) => {
 
     // Temporary response for testing
     if (email === 'test@example.com' && password === 'password123') {
-        return res.status(200).json({ message: 'Login successful', token: 'fake-jwt-token' });
+        return res.status(200).json({ message: 'Login successful EDWARD!!!', token: 'fake-jwt-token' });
     } else {
         return res.status(401).json({ message: 'Invalid credentials' });
     }
