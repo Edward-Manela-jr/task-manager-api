@@ -7,6 +7,9 @@ const landing = require("../backend/routes/landing");
 const homePage = require("../backend/routes/HomePage"); 
 const taskRoutes = require('./routes/task');
 const testpage = require('./routes/testpage');
+// const authRoutes = require('./routes/auth');
+// const landingRoutes = require('./routes/landing');
+
 
 
 
@@ -41,10 +44,13 @@ mongoose.connect(process.env.MONGO_URI, {
     
 // };
 
+// Routes
+// app.use('/api', authRoutes);
 app.use("/edward", landing);
 app.use("/homePage", homePage);
 app.use('/tasks', taskRoutes);
 app.use('/testpage', testpage);
+app.use('/api', landing);
 
 
 const PORT = process.env.PORT || 5000;
