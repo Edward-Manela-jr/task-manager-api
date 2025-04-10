@@ -7,6 +7,7 @@ const landing = require("../backend/routes/landing");
 const homePage = require("../backend/routes/HomePage"); 
 const taskRoutes = require('./routes/task');
 const testpage = require('./routes/testpage');
+const post = require('./routes/postapi')
 // const authRoutes = require('./routes/auth');
 // const landingRoutes = require('./routes/landing');
 
@@ -51,6 +52,7 @@ app.use("/homePage", homePage);
 app.use('/tasks', taskRoutes);
 app.use('/testpage', testpage);
 app.use('/api', landing);
+app.use('/post', post);
 
 
 const PORT = process.env.PORT || 5000;

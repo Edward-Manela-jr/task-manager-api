@@ -1,6 +1,6 @@
 const expres = require ('express');
 const router = expres.Router();
-const login = require('../models/login');
+const users = require('../models/login');
 
 router.get('/manela', (req, res) => {
     res.send('API is running EDWARD...');
@@ -8,25 +8,22 @@ router.get('/manela', (req, res) => {
 
 
 //newly added code for login page testig using postman
-router.post('/login', (req, res) => {
-    const { email, password } = req.body;
+// router.post('/login', (req, res) => {
+//     const { email, password } = req.body;
 
-    // Temporary response for testing
-    if (email === 'test@example.com' && password === 'password123') {
-        return res.status(200).json({ message: 'Login successful EDWARD!!!', token: 'fake-jwt-token' });
-    } else {
-        return res.status(401).json({ message: 'Invalid credentials' });
-    }
-});
-
-
-
-router.post('/login', (req, res) => {
-    // res.send('API is running222222...');
+//     // Temporary response for testing
+//     if (email === 'test@example.com' && password === 'password123') {
+//         return res.status(200).json({ message: 'Login successful EDWARD!!!', token: 'fake-jwt-token' });
+//     } else {
+//         return res.status(401).json({ message: 'Invalid credentials' });
+//     }
+// });
+router.post('/register', (req, res) => {
+    // res.send('API is running...');
     console.log(req.body);
     const {name, email, password} = req.body;
 
-    const userData = new login({
+    const userData = new users({
         name: name,
         email: email,
         password: password
@@ -36,9 +33,26 @@ router.post('/login', (req, res) => {
     userData.save().then(() => {
         // res.json('Data inserted', userData);
         console.log('Data inserted', userData);
+        res.status(200).json({ message: 'User registered successfully', user: userData });
     }).catch((error) => {
        console.log(error.message);
     });
+
+
+}); 
+
+
+router.post('/login',async (req, res) => {
+    // res.send('API is running222222...');
+    console.log(req.body);
+    // const {email, password} = req.body;
+
+    const { email } = req.body;
+    const userFound = await users.findOne({ email: email });
+    if (!userFound) {
+        return res.status(401).json({ message: 'Invalid credentials' });
+    }
+    res.status(200).json({ message: 'Login successful', user: userFound });
 
 
 }); 
